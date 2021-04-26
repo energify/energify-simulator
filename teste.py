@@ -1,16 +1,20 @@
-import datetime
-import dateutil.parser
-import isodate
 
-insertion_date = dateutil.parser.parse('2018-03-13T17:22:20Z')
-now = dateutil.parser.parse(datetime.datetime.now().replace(microsecond=0).isoformat()+str('Z'))
-diff = now - insertion_date
+import numpy as np
 
-oi = isodate.parse_duration('PT15M')
 
-if diff < oi:
-    print("OLA")
+shape = 15
+scale = 2
 
-print(diff)
+s = np.random.exponential(shape,100)
+print(sorted(s))
+print(np.mean(s))
+
+'''import matplotlib.pyplot as plt
+import scipy.special as sps  
+count, bins, ignored = plt.hist(s, 50, density=True)
+y = bins**(shape-1)*(np.exp(-bins/scale) /  
+                     (sps.gamma(shape)*scale**shape))
+plt.plot(bins, y, linewidth=2, color='r')  
+plt.show()'''
 
 
