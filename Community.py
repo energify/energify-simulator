@@ -9,11 +9,21 @@ import collections
 
 def generate_random(num, min, max, mid):
     lst = []
-    while len(lst) < num:
-        rand = np.random.exponential(mid,100)
+    while len(lst) < math.ceil(num/2):
+        rand = np.random.exponential((min+mid)/2,100)
+        rand = (rand - mid) * -1
         for elem in rand:
             elem = math.floor(elem)
-            if elem >= min and elem <= max:
+            if elem >= min and elem <= mid:
+                lst.append(elem)
+                if len(lst) == math.ceil(num/2):
+                    break
+
+    while len(lst) < num:
+        rand = np.random.exponential((mid+max)/2,100)
+        for elem in rand:
+            elem = math.floor(elem)
+            if elem >= mid and elem <= max:
                 lst.append(elem)
                 if len(lst) == num:
                     break
