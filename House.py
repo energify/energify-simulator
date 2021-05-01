@@ -31,4 +31,10 @@ class House:
         return round((self.area * (random.randint(15,22)/100) * irradiance * 1)/1000, 3)
 
     def consumption(self):
-        return 0
+        people_percent = [1, 0.75, 0.5, 0.3, 0.2, 0.1]
+        today = dateutil.parser.parse('2020-12-22T15:00:00Z')
+        hours  = today.hour
+        cons = 0
+        for p in range(len(self.persons)):
+            cons += self.persons[p].profile[hours] * people_percent[p]
+        return cons
