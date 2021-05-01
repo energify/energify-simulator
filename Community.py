@@ -2,8 +2,9 @@ import csv
 import numpy as np
 import math
 import json
-from House import *
+from House import House
 import collections
+import random
 
 
 
@@ -50,8 +51,12 @@ def make_json(csvFilePath, jsonFilePath):
 class Community:
     def __init__(self, local, num_houses):
         make_json(local + '.csv', local + '.json')
-        rand_area = generate_random(num_houses, 5, 50, 15)
+        num_consumers = np.random.randint(0,num_houses/2)
+        rand_area = generate_random(num_houses - num_consumers, 5, 50, 15)
+        rand_area = rand_area + [0 for i in range(num_consumers)]
         rand_people = generate_random(num_houses, 1, 6, 3)
+        random.shuffle(rand_area)
+        random.shuffle(rand_people)
         self.houses = [House(rand_area.pop(), rand_people.pop(),local) for i in range(num_houses)]
 
 
