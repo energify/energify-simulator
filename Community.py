@@ -49,16 +49,22 @@ def make_json(csvFilePath, jsonFilePath):
         json.dump(data,jsonf, indent=4)
 
 class Community:
-    def __init__(self, local, num_houses):
+    def __init__(self, local, houses):
+        make_json('locais/csv/' + local + '.csv', 'locais/json/' + local + '.json')
+
         self.local = local
-        make_json(local + '.csv', local + '.json')
-        num_consumers = np.random.randint(0,num_houses/2)
-        rand_area = generate_random(num_houses - num_consumers, 5, 50, 15)
-        rand_area = rand_area + [0 for i in range(num_consumers)]
-        rand_people = generate_random(num_houses, 1, 6, 3)
-        random.shuffle(rand_area)
-        random.shuffle(rand_people)
-        self.houses = [House(rand_area.pop(), rand_people.pop(),local) for i in range(num_houses)]
+
+        if isinstance(houses,int):
+            num_consumers = np.random.randint(0,houses/2)
+            rand_area = generate_random(houses - num_consumers, 5, 50, 15)
+            rand_area = rand_area + [0 for i in range(num_consumers)]
+            rand_people = generate_random(houses, 1, 6, 3)
+            random.shuffle(rand_area)
+            random.shuffle(rand_people)
+            self.houses = [House(rand_area.pop(), rand_people.pop(),local) for i in range(houses)]
+        else:
+            self.houses = houses
+
 
 
 
