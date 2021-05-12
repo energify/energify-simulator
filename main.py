@@ -37,7 +37,7 @@ def main(arg):
             j = 1
             community_data[str(i)]['people'] = {}
             for person in house.persons:
-                community_data[str(i)]['people'][str(j)] = person.profile[0][0]
+                community_data[str(i)]['people'][str(j)] = person.profile[0]
                 j+=1
             i+=1
 
@@ -56,6 +56,7 @@ def main(arg):
             for person in load[house]['people']:
                 for lista in tipo:
                     if lista[0] == load[house]['people'][person]:
+                        
                         people_list.append(Person(lista))
                         break
 
@@ -79,9 +80,11 @@ def main(arg):
     while True:
         for index in community_times:
             for a in com.houses:
-                update(round(a.production(index) - a.consumption(index),3),a.token)
+                x = a.production(index)
+                y = a.consumption(index)
+                #print(x - y)
+                update(round(x-y,3),a.token)
 
-            #print(index)
             time.sleep(time_2_send)
         break
 

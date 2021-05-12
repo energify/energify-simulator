@@ -1,80 +1,83 @@
 {
     "1": {
-        "area": 31,
-        "people": {
-            "1": "type1",
-            "2": "type1"
-        }
-    },
-    "2": {
-        "area": 33,
-        "people": {
-            "1": "type1",
-            "2": "type1"
-        }
-    },
-    "3": {
-        "area": 48,
+        "area": 40,
         "people": {
             "1": "type1",
             "2": "type1",
             "3": "type1",
             "4": "type1",
-            "5": "type1"
+            "5": "type1",
+            "6": "type1"
+        }
+    },
+    "2": {
+        "area": 12,
+        "people": {
+            "1": "type1",
+            "2": "type1",
+            "3": "type1"
+        }
+    },
+    "3": {
+        "area": 5,
+        "people": {
+            "1": "type1",
+            "2": "type1"
         }
     },
     "4": {
-        "area": 0,
+        "area": 9,
         "people": {
             "1": "type1",
             "2": "type1"
         }
     },
     "5": {
-        "area": 7,
-        "people": {
-            "1": "type1",
-            "2": "type1",
-            "3": "type1"
-        }
-    },
-    "6": {
-        "area": 28,
+        "area": 0,
         "people": {
             "1": "type1",
             "2": "type1"
         }
     },
+    "6": {
+        "area": 22,
+        "people": {
+            "1": "type1",
+            "2": "type1",
+            "3": "type1",
+            "4": "type1"
+        }
+    },
     "7": {
         "area": 8,
         "people": {
-            "1": "type1"
+            "1": "type1",
+            "2": "type1",
+            "3": "type1",
+            "4": "type1",
+            "5": "type1",
+            "6": "type1"
         }
     },
     "8": {
         "area": 0,
         "people": {
-            "1": "type1",
-            "2": "type1",
-            "3": "type1"
+            "1": "type1"
         }
     },
     "9": {
-        "area": 10,
+        "area": 0,
         "people": {
             "1": "type1",
-            "2": "type1",
-            "3": "type1",
-            "4": "type1"
+            "2": "type1"
         }
     },
     "10": {
-        "area": 11,
+        "area": 28,
         "people": {
             "1": "type1",
             "2": "type1",
-            "3": "type1",
-            "4": "type1"
+            "3": "type1"
         }
     }
 }
