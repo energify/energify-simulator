@@ -50,6 +50,7 @@ def make_json(csvFilePath, jsonFilePath):
 
 class Community:
     def __init__(self, local, num_houses):
+        self.local = local
         make_json(local + '.csv', local + '.json')
         num_consumers = np.random.randint(0,num_houses/2)
         rand_area = generate_random(num_houses - num_consumers, 5, 50, 15)
