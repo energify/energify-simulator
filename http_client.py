@@ -1,6 +1,6 @@
 import requests
 
-url = 'http://energify.av.it.pt/'
+url = 'https://energify.av.it.pt/'
 headers = {'content-type':'application/json', 'accept':'application/json'}
 
 def login(email,password):
