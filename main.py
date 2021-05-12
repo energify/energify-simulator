@@ -7,6 +7,7 @@ import json
 import time
 import isodate
 import os
+from http_client import update
 
 #argumento 1 -> local/nome do ficheiro
 #argumento 2 -> tempo de simulacao do ficheiro para um ano em minutos
@@ -72,16 +73,15 @@ def main(arg):
     year = 525600
     x = int(arg[2])
     time_2_send = ((time_interval*x)/year)*60
-    print(time_2_send)
+    #print(time_2_send)
 
 
     while True:
         for index in community_times:
             for a in com.houses:
-                oi = round(a.production(index) - a.consumption(index),3)
-                o = 0
+                update(round(a.production(index) - a.consumption(index),3),a.token)
 
-            print(index)
+            #print(index)
             time.sleep(time_2_send)
         break
 

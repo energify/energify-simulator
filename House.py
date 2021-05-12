@@ -5,9 +5,30 @@ import dateutil.parser
 import isodate
 import random
 import datetime
+import string
+from http_client import *
+
+def gen_rand_string(length):
+    letters = string.ascii_lowercase
+    res = ''.join(random.choice(letters) for i in range(length))
+
 
 class House:
     def __init__(self, area, persons,local):
+        self.password = gen_rand_string(10)
+        self.email = None
+        while True:
+            self.email = gen_rand_string(20)+'@energify.pt'
+            response = register(self.password,self.email,self.password,'23/02/2000',random.randint(100000000,999999999)) 
+            if 'statusCode' not in response:
+                break
+
+        self.token = login(self.email,self.password)
+
+        while True:
+            response = complete(random.randint(100000000,999999999),gen_rand_string(50),gen_rand_string(20),self.token)
+            if 'statusCode' not in response:
+                break
 
         self.local = local
         self.area = area
