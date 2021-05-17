@@ -1,9 +1,6 @@
-import csv
 import numpy as np
 import math
-import json
 from House import House
-import collections
 import random
 
 
@@ -32,26 +29,9 @@ def generate_random(num, min, max, mid):
     return lst
 
 
-
-
-def make_json(csvFilePath, jsonFilePath):
-    data = {}
-
-    with open(csvFilePath, encoding='utf-8') as csvf:
-        csvReader = csv.DictReader(csvf)
-        
-        cont = 0
-        for rows in csvReader:
-            data[str(cont)] = rows
-            cont+=1
-
-    with open(jsonFilePath, 'w', encoding='utf-8') as jsonf:
-        json.dump(data,jsonf, indent=4)
-
 class Community:
     def __init__(self, local, houses):
-        make_json('locais/csv/' + local + '.csv', 'locais/json/' + local + '.json')
-
+        
         self.local = local
 
         if isinstance(houses,int):

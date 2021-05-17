@@ -1,7 +1,8 @@
 import requests
 import json
 
-url = 'http://energify.av.it.pt/'
+#url = 'http://energify.av.it.pt/'
+url = 'https://e679f44f3fa0.ngrok.io/'
 headers = {'content-type':'application/json', 'accept':'application/json'}
 
 def login(email,password):
@@ -29,7 +30,7 @@ def update_price(sell, buy, auth_token):
     return response
 
 def update(measurement,auth_token):
-    data = {'value':measurement}
+    data = {'measures':measurement}
     headers['authorization'] = auth_token
     response = requests.put(url+'meters/user', data=json.dumps(data), headers=headers)
     headers.pop('authorization')

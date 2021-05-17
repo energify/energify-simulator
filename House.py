@@ -7,11 +7,21 @@ import random
 import datetime
 import string
 from http_client import *
+import numpy as np
 
 def gen_rand_string(length):
     letters = string.ascii_lowercase
     res = ''.join(random.choice(letters) for i in range(length))
     return res
+
+def gen_value():
+    lista = np.random.normal(1.1,0.05,20)
+    index = random.randint(0,19)
+    while(lista[index] > 1.20 or lista[index] < 1.00):
+        index = random.randint(0,19)
+    return lista[index]
+
+
 
 
 
@@ -35,8 +45,13 @@ class House:
                 break
 
         self.token = login(self.email,self.password)
+        self.buy = round(gen_value(),2)
+        self.sell = round(gen_value(),2)
+
+        #print(sell,buy)
+
         
-        update_price(4,5,self.token)
+        update_price(self.sell,self.buy,self.token)
 
         self.local = local
         self.area = area
@@ -57,10 +72,11 @@ class House:
 
     def consumption(self,index):
         people_percent = [1, 0.75, 0.5, 0.3, 0.2, 0.1]
-        time_now = self.data[index]['PeriodStart']
+        info = self.data[index]
+        time_now = info['PeriodStart']
         today = dateutil.parser.parse(time_now)
         hours  = today.hour
-        temp = float(self.data[index]['AirTemp'])
+        temp = float(info['AirTemp'])
         prof_temp = None
         if temp <= 5:prof_temp = 0
         elif temp <= 10: prof_temp = 1

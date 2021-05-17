@@ -109,3 +109,6 @@ __pycache__
 *.xml
 *.iml
 teste.py
+
+comunidades/
+locais/
