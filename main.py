@@ -124,7 +124,7 @@ def main(arg):
 
             end_timestamp += time_interval
 
-            while(timestamp <= end_timestamp):
+            while(timestamp < end_timestamp):
 
                 cont = 0
                 for a in com.houses:
@@ -135,8 +135,8 @@ def main(arg):
                 timestamp += 15
 
             for a in com.houses:
-                #print(json.dumps(house_dict[a], indent=4))
-                print(update(house_dict[a],a.token).json(), datetime.fromtimestamp(timestamp-15))
+                #print(len(house_dict[a]))
+                print(update(house_dict[a],a.token).json(), datetime.fromtimestamp(timestamp))
         print(time.time() - time1)
         
         break
