@@ -15,7 +15,7 @@ def gen_rand_string(length):
     return res
 
 def gen_value():
-    lista = np.random.normal(1.1,0.05,20)
+    lista = np.random.normal(1.1,0.01,20)
     index = random.randint(0,19)
     while(lista[index] > 1.20 or lista[index] < 1.00):
         index = random.randint(0,19)
@@ -45,8 +45,9 @@ class House:
                 break
 
         self.token = login(self.email,self.password)
-        self.buy = round(gen_value(),2)
         self.sell = round(gen_value(),2)
+        self.buy = round(self.sell+0.02,2)
+
 
         #print(sell,buy)
 
