@@ -10,6 +10,8 @@ import os
 from http_client import update
 import dateutil.parser as dp
 import csv
+from http_client import update_price
+from datetime import datetime
 
 #argumento 1 -> local/nome do ficheiro
 #argumento 2 -> tempo de simulacao do ficheiro para um ano em minutos
@@ -85,6 +87,7 @@ def main(arg):
             h = House(area,people_list,arg[1])
             h.sell = load[house]['sell']
             h.buy = load[house]['buy']
+            update_price(h.sell,h.buy,h.token)
             house_list.append(h)
 
         com = Community(arg[1],house_list)
@@ -116,6 +119,7 @@ def main(arg):
         for index in community_times:
             values = []
             for a in com.houses:
+                house_dict[a] = []
                 values.append(round(a.production(index) - a.consumption(index),3))
 
             end_timestamp += time_interval
@@ -132,8 +136,9 @@ def main(arg):
 
             for a in com.houses:
                 #print(json.dumps(house_dict[a], indent=4))
-                print(update(house_dict[a],a.token).json())
+                print(update(house_dict[a],a.token).json(), datetime.fromtimestamp(timestamp-15))
         print(time.time() - time1)
+        
         break
 
 main(sys.argv)

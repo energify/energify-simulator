@@ -1,8 +1,8 @@
 import requests
 import json
 
-#url = 'http://energify.av.it.pt/'
-url = 'https://e679f44f3fa0.ngrok.io/'
+url = 'http://energify.av.it.pt/'
+#url = 'https://e679f44f3fa0.ngrok.io/'
 headers = {'content-type':'application/json', 'accept':'application/json'}
 
 def login(email,password):
