@@ -2,24 +2,18 @@ import requests
 import json
 
 url = 'http://energify.av.it.pt/'
-#url = 'https://e679f44f3fa0.ngrok.io/'
+#url = 'https://48fe88deadd3.ngrok.io/'
 headers = {'content-type':'application/json', 'accept':'application/json'}
 
 def login(email,password):
     data = {'email': email,'password':password}
-    response = requests.post(url+'users/login', data=json.dumps(data), headers=headers)
+    response = requests.post(url+'auth/login', data=json.dumps(data), headers=headers)
+    print(json.dumps(response.json(),indent=4))
     return response.json()['accessToken']
 
-def register(name,email,password,born_at,cc):
-    data = {'name':name, 'email': email,'password': password, 'birthday': born_at, 'cc': cc}
-    response = requests.post(url+'users/register', data=json.dumps(data), headers=headers)
-    return response
-
-def complete(nif,address,hedera_id,auth_token):
-    data = {'nif':nif, 'address': address,'hederaAccountId': hedera_id}
-    headers['authorization'] = auth_token
-    response = requests.put(url+'users/complete', data=json.dumps(data), headers=headers)
-    headers.pop('authorization')
+def register(name,email,password):
+    data = {'name':name, 'email': email,'password': password}
+    response = requests.post(url+'auth/register', data=json.dumps(data), headers=headers)
     return response
     
 def update_price(sell, buy, auth_token):

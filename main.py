@@ -12,6 +12,7 @@ import dateutil.parser as dp
 import csv
 from http_client import update_price
 from datetime import datetime
+import socketio
 
 #argumento 1 -> local/nome do ficheiro
 #argumento 2 -> tempo de simulacao do ficheiro para um ano em minutos
@@ -94,7 +95,6 @@ def main(arg):
 
 
 
-            
 
     time_interval = str(isodate.parse_duration(community_times['0']['Period'])).split(':')
     time_interval = (int(time_interval[0])*60 + int(time_interval[1]))*60
@@ -107,7 +107,16 @@ def main(arg):
 
     house_dict = {}
 
+    socket_list = []
+
+    #url = 'https://f0ce8cee2bd3.ngrok.io/' 
+    url = 'http://energify.av.it.pt/'
+
     for a in com.houses:
+        sio = socketio.Client()
+        sio.connect(url,headers= {'authorization': a.token},namespaces=['/measures'])
+        socket_list.append(sio)
+        print(sio.sid)
         if a not in house_dict:
             house_dict[a] = []
 
@@ -133,12 +142,17 @@ def main(arg):
 
                 time.sleep(time_2_send)
                 timestamp += 15
-
+            cont = 0
             for a in com.houses:
                 #print(len(house_dict[a]))
-                print(update(house_dict[a],a.token).json(), datetime.fromtimestamp(timestamp))
+                socket_list[cont].emit('store-bulk',house_dict[a],namespace='/measures')
+                cont += 1
+                print(datetime.fromtimestamp(timestamp))
+                #print(update(house_dict[a],a.token).json(), datetime.fromtimestamp(timestamp))
         print(time.time() - time1)
         
         break
+    for i in range(len(com.houses)):
+        socket_list[i].disconnect()
 
 main(sys.argv)

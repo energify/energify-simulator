@@ -27,24 +27,21 @@ def gen_value():
 
 class House:
     def __init__(self, area, persons,local):
-        self.password = gen_rand_string(10)
+        '''self.password = gen_rand_string(10)
         self.email = None
         while True:
             self.email = gen_rand_string(20)+'@energify.pt'
-            response = register(self.password,self.email,self.password,'2000-02-23',str(random.randint(100000000,999999999))) 
+            response = register(self.password,self.email,self.password) 
             print(response.json())
             if 'statusCode' not in response.json():
-                break
+                break'''
 
-        self.token = login(self.email,self.password)
-
-        while True:
-            response = complete(str(random.randint(100000000,999999999)),gen_rand_string(50),gen_rand_string(20),self.token)
-            print(response)
-            if 'statusCode' not in response.json():
-                break
-
-        self.token = login(self.email,self.password)
+        self.email = 'rob@energify.pt'
+        self.password = '1234'
+        self.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUm9iIiwiaWQiOiI2MGFiYjIwYmE4MDgxMjJjMzdhYTJiN2IiLCJlbWFpbCI6InJvYkBlbmVyZ2lmeS5wdCIsImlhdCI6MTYyMTg2NjYzMX0.rvw1hleW1GrN3P9neL4cq-dSBavJx79S6gC2XR2Thf0'
+        #self.token = login(self.email,self.password)
+        #print(self.token)
+       
         self.sell = round(gen_value(),2)
         self.buy = round(self.sell+0.02,2)
 
