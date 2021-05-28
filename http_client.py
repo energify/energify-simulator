@@ -1,18 +1,18 @@
 import requests
 import json
 
-url = 'http://energify.av.it.pt/'
+#url = 'http://energify.av.it.pt/'
+url = 'http://13.84.134.143:3000/'
 #url = 'https://48fe88deadd3.ngrok.io/'
 headers = {'content-type':'application/json', 'accept':'application/json'}
 
 def login(email,password):
     data = {'email': email,'password':password}
     response = requests.post(url+'auth/login', data=json.dumps(data), headers=headers)
-    print(json.dumps(response.json(),indent=4))
     return response.json()['accessToken']
 
-def register(name,email,password):
-    data = {'name':name, 'email': email,'password': password}
+def register(name,email,password,id):
+    data = {'name':name, 'email': email,'password': password, 'hederaAccountId': id}
     response = requests.post(url+'auth/register', data=json.dumps(data), headers=headers)
     return response
     

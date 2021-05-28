@@ -1,18 +1,18 @@
 from Community import Community
 from Person import Person
-from profile import tipo
 from House import House
-import sys
+from profile import tipo
 import json
+import sys
 import time
 import isodate
 import os
-from http_client import update
 import dateutil.parser as dp
 import csv
 from http_client import update_price
 from datetime import datetime
 import socketio
+
 
 #argumento 1 -> local/nome do ficheiro
 #argumento 2 -> tempo de simulacao do ficheiro para um ano em minutos
@@ -53,7 +53,6 @@ def main(arg):
 
         community_data = {}
         i = 1
-        print(com.houses)
         for house in com.houses:
             community_data[str(i)] = {}
             community_data[str(i)]['area'] = house.area
@@ -110,7 +109,7 @@ def main(arg):
     socket_list = []
 
     #url = 'https://f0ce8cee2bd3.ngrok.io/' 
-    url = 'http://energify.av.it.pt/'
+    url = 'http://13.84.134.143:6379'
 
     for a in com.houses:
         sio = socketio.Client()
