@@ -108,8 +108,8 @@ def main(arg):
 
     socket_list = []
 
-    #url = 'https://f0ce8cee2bd3.ngrok.io/' 
-    url = 'http://13.84.134.143:6379'
+    url = 'http://localhost:6379' 
+    #url = 'http://13.84.134.143:6379'
 
     for a in com.houses:
         sio = socketio.Client()

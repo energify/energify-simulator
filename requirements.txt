@@ -1,0 +1,4 @@
+isodate
+python-dateutil
+numpy
+python-socketio==4.6.1

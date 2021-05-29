@@ -4,7 +4,6 @@ import json
 import dateutil.parser
 import isodate
 import random
-import datetime
 import string
 from http_client import *
 import numpy as np
