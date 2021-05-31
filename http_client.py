@@ -1,8 +1,8 @@
 import requests
 import json
 
-url = 'http://localhost:3000/'
-#url = 'http://13.84.134.143:3000/'
+#url = 'http://localhost:3000/'
+url = 'http://13.84.134.143:3000/'
 headers = {'content-type':'application/json', 'accept':'application/json'}
 
 def login(email,password):

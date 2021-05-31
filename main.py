@@ -16,8 +16,9 @@ import socketio
 
 #argumento 1 -> local/nome do ficheiro
 #argumento 2 -> tempo de simulacao do ficheiro para um ano em minutos
-#argumento 3 -> nome
-#argumento 4 -> numero  
+#argumento 3 -> tempo entre leituras em segundos
+#argumento 4 -> nome
+#argumento 5 -> numero  
 
 
 def make_json(csvFilePath, jsonFilePath):
@@ -45,8 +46,8 @@ def main(arg):
     
     com = None
 
-    if len(arg) == 5 and str(arg[3]+'.json') not in os.listdir('comunidades/'):
-        com = Community(arg[1], int(arg[4]))
+    if len(arg) == 6 and str(arg[4]+'.json') not in os.listdir('comunidades/'):
+        com = Community(arg[1], int(arg[5]))
 
         
 
@@ -66,11 +67,11 @@ def main(arg):
             
             i+=1
 
-        with open('comunidades/' + arg[3] + str('.json'), 'w') as f:
+        with open('comunidades/' + arg[4] + str('.json'), 'w') as f:
             json.dump(community_data,f, indent=4)
 
     else:
-        with open('comunidades/' + arg[3]+str('.json'), 'r') as f:
+        with open('comunidades/' + arg[4]+str('.json'), 'r') as f:
             load = json.load(f)
 
         house_list = []
@@ -98,18 +99,19 @@ def main(arg):
     time_interval = str(isodate.parse_duration(community_times['0']['Period'])).split(':')
     time_interval = (int(time_interval[0])*60 + int(time_interval[1]))*60
     year = 31536000
+    read_interval = int(arg[3])
     x = int(arg[2])*60
-    time_2_send = (15*x)/year
+    time_2_send = (read_interval*x)/year
     #print(time_2_send)
 
     time1 = 0
-
+    skip_flag = False
     house_dict = {}
 
     socket_list = []
 
-    url = 'http://localhost:6379' 
-    #url = 'http://13.84.134.143:6379'
+    #url = 'http://localhost:6379' 
+    url = 'http://13.84.134.143:6379'
 
     for a in com.houses:
         sio = socketio.Client()
@@ -133,21 +135,24 @@ def main(arg):
             end_timestamp += time_interval
 
             while(timestamp < end_timestamp):
-
+                skip_flag = True
                 cont = 0
                 for a in com.houses:
                     house_dict[a].append({'timestamp': timestamp, 'value': values[cont]})
                     cont+=1
 
                 time.sleep(time_2_send)
-                timestamp += 15
-            cont = 0
-            for a in com.houses:
-                #print(len(house_dict[a]))
-                socket_list[cont].emit('store-bulk',house_dict[a],namespace='/measures')
-                cont += 1
-                print(datetime.fromtimestamp(timestamp))
-                #print(update(house_dict[a],a.token).json(), datetime.fromtimestamp(timestamp))
+                timestamp += read_interval
+
+            if skip_flag:
+                skip_flag = False
+                cont = 0
+                for a in com.houses:
+                    #print(len(house_dict[a]))
+                    socket_list[cont].emit('store-bulk',house_dict[a],namespace='/measures')
+                    cont += 1
+                    print(datetime.fromtimestamp(timestamp))
+                    #print(update(house_dict[a],a.token).json(), datetime.fromtimestamp(timestamp))
         print(time.time() - time1)
         
         break
