@@ -81,6 +81,7 @@ def main(arg):
             people_list = []
             for person in load[house]['people']:
                 for lista in tipo:
+                    print(lista[0], load[house]['people'][person])
                     if lista[0] == load[house]['people'][person]:
                         
                         people_list.append(Person(lista))

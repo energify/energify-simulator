@@ -58,7 +58,7 @@ class House:
         self.time_interval = isodate.parse_duration(self.data['0']['Period'])
 
         if isinstance(persons,int):
-            self.persons = [Person(tipo[0]) for i in range(persons)]
+            self.persons = [Person(tipo[random.randint(0,2)]) for i in range(persons)]
         else:
             self.persons = persons
 
